@@ -10,6 +10,7 @@ namespace Store_Web.Data
     {
         private readonly DataContext context;
 
+        /*gerador de 1ªs dados */
         private Random random;
 
         public SeedDb(DataContext context)
@@ -18,6 +19,7 @@ namespace Store_Web.Data
             this.random = new Random();
         }
 
+        /* Processo de criação de dados na primeira vez que a base de dados é utilizada  */
         public async Task SeedAsync()
         {
             await this.context.Database.EnsureCreatedAsync();
@@ -32,6 +34,7 @@ namespace Store_Web.Data
 
         }
 
+        /* dados que serão colocados automaticamente na primeira vez que a base de dados é utilizada  */
         private void AddProduct(string name)
         {
             this.context.Products.Add(new Product 

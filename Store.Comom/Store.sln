@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd", "BackEnd", "{0383
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FronEnd", "FronEnd", "{C8A5532F-949C-4A19-B2EC-B1F4E5F55A9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Commom", "Store.Commom\Store.Commom.csproj", "{F7129EDF-F771-4D10-B3BB-B995C0D0995D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Web", "Store.Web\Store.Web.csproj", "{CCCA89D3-FC9A-4325-9CD4-D40E481303F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classic", "Classic", "{3987ACBF-25ED-41AF-AA53-4C7A9966D820}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F7129EDF-F771-4D10-B3BB-B995C0D0995D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7129EDF-F771-4D10-B3BB-B995C0D0995D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7129EDF-F771-4D10-B3BB-B995C0D0995D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7129EDF-F771-4D10-B3BB-B995C0D0995D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CCCA89D3-FC9A-4325-9CD4-D40E481303F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCCA89D3-FC9A-4325-9CD4-D40E481303F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCCA89D3-FC9A-4325-9CD4-D40E481303F4}.Release|Any CPU.ActiveCfg = Release|Any CPU

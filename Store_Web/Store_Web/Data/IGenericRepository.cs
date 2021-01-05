@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Store_Web.Data
 {
-    interface IGenericRepository<T> where T: class
+    public interface IGenericRepository<T> where T : class
     {
         IQueryable<T> GetAll();
 
@@ -15,7 +15,7 @@ namespace Store_Web.Data
         Task CreateAsync(T entity);
 
 
-        Task UpadteAsync(T entity);
+        Task UpdateAsync(T entity);
 
 
         Task DeleteAsync(T entity);

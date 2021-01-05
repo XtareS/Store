@@ -2,7 +2,7 @@
 
 namespace Store_Web.Data
 {
-    public interface IProductRepository : IGenericRepository<Product>
+    public interface ICountryRepository : IGenericRepository<Country>
     {
     }
 }

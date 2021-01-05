@@ -35,8 +35,10 @@ namespace Store_Web
 
             /* injecçáo e implementação repository*/
 
-            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
+
+            services.AddScoped<ICountryRepository, CountryRepository>();
 
 
             services.Configure<CookiePolicyOptions>(options =>

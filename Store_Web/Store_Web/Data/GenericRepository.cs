@@ -17,7 +17,7 @@ namespace Store_Web.Data
 
         public IQueryable<T> GetAll()
         {
-           return this.context.Set<T>().AsNoTracking();
+           return this.context.Set<T>().AsNoTracking().OrderBy(e=>e.Name); /* tabm pode ser aplicado no Controllador */
         }
 
 
@@ -39,7 +39,7 @@ namespace Store_Web.Data
 
         
 
-        public async Task UpadteAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
              this.context.Set<T>().Update(entity);
             await SaveAllAsync();

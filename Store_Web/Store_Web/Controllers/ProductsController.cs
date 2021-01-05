@@ -138,15 +138,10 @@ namespace Store_Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            var product = this.repository.GetProduct(id);
+            this.repository.RemoveProduct(product);
+            await this.repository.SaveAllAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

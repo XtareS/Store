@@ -96,12 +96,12 @@ namespace Store_Web.Controllers
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                  this.repository.UpdateProduct(product);
+                    await this.repository.SaveAllAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!this.repository.ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -123,8 +123,8 @@ namespace Store_Web.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = this.repository.GetProduct(id.Value);
+                
             if (product == null)
             {
                 return NotFound();

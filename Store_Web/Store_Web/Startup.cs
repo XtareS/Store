@@ -33,6 +33,11 @@ namespace Store_Web
             services.AddTransient<SeedDb>();
 
 
+            /* injecçáo e implementação repository*/
+
+            services.AddScoped<IRepository, Repository>();
+
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {

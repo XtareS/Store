@@ -35,7 +35,7 @@ namespace Store_Web
 
             /* injecçáo e implementação repository*/
 
-            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IRepository, TestRepository>();
 
 
 

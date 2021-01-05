@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Store_Web.Data;
 using Store_Web.Data.Enteties;
+using Store_Web.Helpers;
 
 namespace Store_Web
 {
@@ -51,12 +52,24 @@ namespace Store_Web
             services.AddTransient<SeedDb>();
 
 
+
+
+
+
             /* injecçáo e implementação repository*/
 
             services.AddScoped<IProductRepository, ProductRepository>();
 
 
             services.AddScoped<ICountryRepository, CountryRepository>();
+
+
+            services.AddScoped<IUserHelper, UserHelper>();
+
+
+
+
+
 
 
             services.Configure<CookiePolicyOptions>(options =>

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Store_Web.Data;
-using Store_Web.Data.Enteties;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Store_Web.Data;
+using Store_Web.Data.Enteties;
 
 namespace Store_Web.Controllers
 {
@@ -24,15 +26,14 @@ namespace Store_Web.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = this.repository.GetProduct(id.Value);
             if (product == null)
             {
                 return NotFound();

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Store_Web.Data;
 using Store_Web.Data.Enteties;
 using Store_Web.Helpers;
+using Store_Web.Models;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -54,10 +56,32 @@ namespace Store_Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,ImageUrl,LastPurchase,LastSale,IsAvailable,Stock")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,ImageFile,LastPurchase,LastSale,IsAvailable,Stock,User")] ProductsViewModel view)
         {
             if (ModelState.IsValid)
             {
+                /*para gravar as imagens*/
+                var path = string.Empty;
+
+                if(view.ImageFile != null && view.ImageFile.Length > 0)
+                {
+                    path = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot\\images\\Products",
+                        view.ImageFile.FileName);
+
+                    using(var stream =new FileStream(path, FileMode.Create))
+                    {
+                        await view.ImageFile.CopyToAsync(stream);
+                    }
+
+                    path = $"~/images/Products/{view.ImageFile.FileName}";
+                }
+
+
+
+
+                var product = this.ToProduct(view, path);
 
                 //TODO:Change for The Logged User
 
@@ -67,7 +91,24 @@ namespace Store_Web.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(view);
+        }
+
+        private Product ToProduct(ProductsViewModel view, string path)
+        {
+            return new Product
+            {
+                Id = view.Id,
+                ImageUrl = path,
+                IsAvailable = view.IsAvailable,
+                LastPurchase = view.LastPurchase,
+                LastSale = view.LastSale,
+                Name = view.Name,
+                Price = view.Price,
+                Stock = view.Stock,
+                User = view.User
+
+            };
         }
 
         // GET: Products/Edit/5

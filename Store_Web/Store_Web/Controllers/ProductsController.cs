@@ -124,7 +124,26 @@ namespace Store_Web.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+
+            var view = this.ToProductViewModel(product);
+
+            return View(view);
+        }
+
+        private ProductsViewModel ToProductViewModel(Product product)
+        {
+            return new ProductsViewModel
+            {
+                Id = product.Id,
+                ImageUrl = product.ImageUrl,
+                IsAvailable = product.IsAvailable,
+                LastPurchase = product.LastPurchase,
+                LastSale = product.LastSale,
+                Name = product.Name,
+                Price = product.Price,
+                Stock = product.Stock,
+                User = product.User
+            };
         }
 
         // POST: Products/Edit/5
@@ -132,13 +151,38 @@ namespace Store_Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,ImageUrl,LastPurchase,LastSale,IsAvailable,Stock")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,ImageFile,LastPurchase,LastSale,IsAvailable,Stock")] ProductsViewModel view)
         {
             
             if (ModelState.IsValid)
             {
-                try
+
+               try
                 {
+                    var path = view.ImageUrl;
+
+                    if (view.ImageFile != null && view.ImageFile.Length > 0)
+                    {
+                        path = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot\\images\\Products",
+                            view.ImageFile.FileName);
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await view.ImageFile.CopyToAsync(stream);
+                        }
+
+                        path = $"~/images/Products/{view.ImageFile.FileName}";
+                    }
+
+
+
+
+                    var product = this.ToProduct(view, path);
+
+
+
                     //TODO:Change for The Logged User
 
                     product.User = await this.userHelper.GetUserByEmailAsync(" Xtare16.Soares@gmail.com");
@@ -147,7 +191,7 @@ namespace Store_Web.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await this.productrepository.ExistsAsync(product.Id))
+                    if (!await this.productrepository.ExistsAsync(view.Id))
                     {
                         return NotFound();
                     }
@@ -158,7 +202,7 @@ namespace Store_Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(view);
         }
 
         // GET: Products/Delete/5

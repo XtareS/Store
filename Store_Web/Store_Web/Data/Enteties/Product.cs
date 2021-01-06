@@ -50,5 +50,21 @@ namespace Store_Web.Data.Enteties
 
         public User User { get; set; }
 
+
+        /*API para as Imagens*/
+
+
+        public string ImageFullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.ImageUrl))
+                {
+                    return null;
+                }
+                return $"https://localhost:44397/Products {this.ImageUrl.Substring(1)}";
+            }
+        }
+
     }
 }

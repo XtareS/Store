@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classic", "Classic", "{7144
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{25C9889B-362A-4E20-947A-2B889A691722}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Commom", "Store.Commom\Store.Commom.csproj", "{2610C921-7761-42DC-B839-A2D3DCC0BA6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Commom", "Store.Commom\Store.Commom.csproj", "{2610C921-7761-42DC-B839-A2D3DCC0BA6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

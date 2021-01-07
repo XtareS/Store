@@ -108,5 +108,97 @@ namespace Store_Web.Controllers
             return this.View(model);
         }
 
+
+        public async Task<IActionResult> ChangeUser()
+        {
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+            var model = new ChangeUserViewModel();
+
+            if(user != null)
+            {
+                model.FristName = user.FristName;
+                model.LastName = user.LastName;
+            }
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>ChangeUser(ChangeUserViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+                if (user != null)
+                {
+                    user.FristName = model.FristName;
+                    user.LastName = model.LastName;
+                    var rspns = await this.userHelper.ChangePasswordAsync(user);
+                    if (rspns.Succeeded)
+                    {
+                        this.ViewBag.UserMessage = "Update Succeed";
+                    }
+                    else
+                    {
+                        this.ModelState.AddModelError(string.Empty, rspns.Errors.FirstOrDefault().Description);
+                    }
+
+
+                }
+                else
+                {
+                    this.ModelState.AddModelError(string.Empty, "User wasn't found");
+                }
+
+            }
+            return this.View(model);
+        }
+
+
+        public IActionResult ChangePassword()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+                if (user != null)
+                {
+                   
+                    var rspns = await this.userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (rspns.Succeeded)
+                    {
+                        this.RedirectToAction("ChangeUser");
+                    }
+                    else
+                    {
+                        this.ModelState.AddModelError(string.Empty, rspns.Errors.FirstOrDefault().Description);
+                    }
+
+
+                }
+                else
+                {
+                    this.ModelState.AddModelError(string.Empty, "User wasn't found");
+                }
+
+            }
+            return this.View(model);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

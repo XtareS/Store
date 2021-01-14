@@ -28,6 +28,8 @@ namespace Store_Web.Data
         {
             await this.context.Database.EnsureCreatedAsync();
 
+            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("Customer");
 
             var user = await this.userHelper.GetUserByEmailAsync("Xtare16.soares@gmail.com");
 
@@ -50,9 +52,16 @@ namespace Store_Web.Data
                     throw new InvalidOperationException("Could Not Create the User in Seeder");
                 }
 
+                await this.userHelper.AddUsertoRoleAsync(user, "Admin");
+
             }
 
-
+            var isRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+            
+            if (!isRole)
+            {
+                await this.userHelper.AddUsertoRoleAsync(user, "Admin");
+            }
 
 
 
